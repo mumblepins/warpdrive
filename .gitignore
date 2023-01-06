@@ -472,3 +472,4 @@ vcpkg_installed/
 # VSCode
 **/**/.vscode
 src/warpdrive/warpdriveConfigVersion.cmake
+_build*/

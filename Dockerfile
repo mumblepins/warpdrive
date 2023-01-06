@@ -40,39 +40,7 @@ RUN yum install -y wget && \
     ./bootstrap.sh --prefix=/opt/boost && \
     ./b2 install --prefix=/opt/boost --with=all || true
 
-RUN echo $'[ODBC] \n\
-Trace=yes \n\
-TraceFile=/tmp/odbctrace.log \n\
-
-[ODBC Drivers] \n\
-FlightSQL = Installed \n\
-FlightSQL-Debug = Installed \n\
-
-[FlightSQL] \n\
-Description=FlightSQL Driver \n\
-Driver=/opt/warpdrive/_build/release/libarrow-odbc.so \n\
-FileUsage=1 \n\
-UsageCount=1 \n\
-
-[FlightSQL-Debug] \n\
-Description=FlightSQL Driver \n\
-Driver=/opt/warpdrive/_build/debug/libarrow-odbc.so \n\
-FileUsage=1 \n\
-UsageCount=1 \n\
-' > /etc/odbcinst.ini
-
-RUN echo $'[ODBC Data Sources] \n\
-FlightSQL       = FlightSQL Driver \n\
-
-[FlightSQL] \n\
-Description     = FlightSQL Driver \n\
-Driver          = FlightSQL \n\
-host            = host.docker.internal \n\
-port            = 32010 \n\
-user            = dremio \n\
-password        = dremio123 \n\
-useEncryption   = 0 \n\
-' > /root/.odbc.ini
+COPY docker_root /
 
 # Enabled gcc 9 as default on bash
 RUN echo 'source scl_source enable devtoolset-9' >> ~/.bashrc
