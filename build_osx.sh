@@ -11,13 +11,9 @@ set -e
 
 vcpkg/vcpkg install --triplet x64-osx --x-install-root=vcpkg/installed
 
+source build.common.sh
 mkdir -p build
 cd build
-
-ARROW_GIT_REPOSITORY="${ARROW_GIT_REPOSITORY:=https://github.com/apache/arrow}"
-ARROW_GIT_TAG="${ARROW_GIT_TAG:=b050bd0d31db6412256cec3362c0d57c9732e1f2}"
-ODBCABSTRACTION_REPO="${ODBCABSTRACTION_REPO:=../flightsql-odbc}"
-ODBCABSTRACTION_GIT_TAG="${ODBCABSTRACTION_GIT_TAG:=156ac3d10703c00308ff707134d65b20dd362281}"
 
 cmake \
   -DCMAKE_BUILD_TYPE=Release \
